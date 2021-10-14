@@ -20,13 +20,15 @@ def main():
     number = int(number_input)
     guess = int(guess_input)
     tolerance = float(tolerance_input)
-
+    
+    count = 0
     while math.fabs(guess*guess - number) >= tolerance: 
         quotient = number/guess
         average = (quotient + guess) / 2
         guess = average
+        count +=1
 
-    print(guess)
+    print(f"Square root of {number} is {guess} and it was guessed with {count} attempts")
 
 
     
