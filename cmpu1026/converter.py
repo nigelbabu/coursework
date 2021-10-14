@@ -23,11 +23,12 @@ def bin_convert(number):
         return
     if number == 0:
         print(f"Binary: {number}")
+        print(f"Decimal: {number}")
         return
 
     # create a list to hold the individual digits of binary number
     binstore = []
-    while number >= 0:
+    while number > 0:
         # Keep appending the remainders to the list
         binstore.append(str(number % 2))
         # Reduce the number down to smaller sizes
@@ -68,6 +69,7 @@ def hex_convert(number):
         return
     if number <10:
         print(f"Hexadecimal: {number}")
+        print(f"Decimal: {number}")
         return
     # Hold a conversion dict for ease of lookups
     int_to_hex = {
@@ -80,7 +82,7 @@ def hex_convert(number):
     }
     # A list to hold each character before conversion
     hexstore = []
-    while number >= 0:
+    while number > 0:
         # The reminder is the digit
         digit = number % 16
         number = number // 16
