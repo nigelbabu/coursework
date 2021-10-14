@@ -7,7 +7,6 @@
 4. Make the new guess the average for step 5.
 5. If the guess is within the floating point tolerance, print the answer.
 """
-import math
 
 
 def main():
@@ -20,15 +19,29 @@ def main():
     number = int(number_input)
     guess = int(guess_input)
     tolerance = float(tolerance_input)
-    
-    count = 0
-    while math.fabs(guess*guess - number) >= tolerance: 
-        quotient = number/guess
-        average = (quotient + guess) / 2
-        guess = average
-        count +=1
 
-    print(f"Square root of {number} is {guess} and it was guessed with {count} attempts")
+    quotient = number//guess
+    average = (guess + quotient) / 2
+    remainder = average - guess
+    count = 1
+    if remainder < 0:
+        remainder *= -1
+
+    while remainder >= tolerance:
+        print(f"You have unsuccessfully guessed sqrt({number}) with a "
+              f"tolerance of {tolerance}, you were out by {remainder}. Please"
+              " try again.")
+        guess_input = input("Provide a guess ")
+        guess = int(guess_input)
+        quotient = number/guess
+        average = (guess + quotient) / 2
+        remainder = average - guess
+        if remainder < 0:
+            remainder *= -1
+        count += 1
+
+    print(f"You guessed the sqrt({number}) within a tolerance of {tolerance}"
+          f" with {count} tries.")
 
 
     
