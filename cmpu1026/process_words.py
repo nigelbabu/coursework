@@ -15,6 +15,8 @@ def get_vowels(word):
     return vowel_only
 
 def test_word(word):
+    if len(word) < 6:
+        return False
     if get_vowels(word) == VOWELS:
         return True
     return False
