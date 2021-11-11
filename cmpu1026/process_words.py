@@ -7,16 +7,21 @@ def words():
         for line in f:
             yield line.strip()
 
+def get_vowels(word):
+    vowel_only = []
+    for letter in word:
+        if letter in VOWELS:
+            vowel_only.append(letter)
+    return vowel_only
+
+def test_word(word):
+    if get_vowels(word) == VOWELS:
+        return True
+    return False
+
 def main():
     for word in words():
-        pos = 0
-        for letter in word:
-            if letter in VOWELS:
-                if letter == VOWELS[pos]:
-                    pos += 1
-                if pos == len(VOWELS):
-                    break
-        if pos >= 3:
+        if test_word(word):
             print(word)
 
 
