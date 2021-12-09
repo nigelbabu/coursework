@@ -9,10 +9,38 @@ fraction to its simplest form.
 class Fraction(object):
     
     def __init__(self, num, denom):
-        self.frac = (num, denom)
+        self.numerator = num
+        self.denominator = denom
 
     def __str__(self):
-        return f"{self.frac[0]} / {self.frac[1]}"
+        return f"{self.numerator} / {self.denominator}"
+
+    def add(self, second):
+        l = lcm(self.denominator, second.denominator)
+        numerator = (
+                self.numerator * (l // self.denominator) +
+                second.numerator * (l // second.denominator))
+        self.numerator = numerator
+        self.denominator = l
+        self.reduce()
+        return self
+
+    def subtract(self, second):
+        l = lcm(self.denominator, second.denominator)
+        numerator = (
+                self.numerator * (l // self.denominator) -
+                second.numerator * (l // second.denominator))
+        print(numerator, l, self.denominator)
+        self.numerator = numerator
+        self.denominator = l
+        self.reduce()
+        return self
+
+    def reduce(self):
+        g = gcd(self.numerator, self.denominator)
+        self.numerator //= g
+        self.denominator //= g
+
 
 def gcd(first, second):
     if first < second:
@@ -31,30 +59,15 @@ def lcm(first, second):
     return (first // gcd(first, second)) * second
 
 
-def addFrac(frac1, frac2):
-    l = lcm(frac1.frac[1], frac2.frac[1])
-    numerator = (
-            frac1.frac[0] * (l // frac1.frac[1]) +
-            frac2.frac[0] * (l // frac2.frac[1]))
-    return Fraction(numerator, l)
-
-def subFrac(frac1, frac2):
-    l = lcm(frac1.frac[1], frac2.frac[1])
-    numerator = (
-            frac1.frac[0] * (l // frac1.frac[1]) -
-            frac2.frac[0] * (l // frac2.frac[1]))
-    return Fraction(numerator, l)
-
-def reduce(frac):
-    g = gcd(frac.frac[0], frac.frac[1])
-    return Fraction(frac.frac[0] // g, frac.frac[1] // g)
-
 def main():
     one = Fraction(1, 4)
-    two = Fraction(1, 3)
-    print(addFrac(one, two))
-    print(subFrac(one, two))
-    print(reduce(Fraction(3, 6)))
+    two = Fraction(1, 4)
+    print(lcm(4, 4))
+    print(one.add(two))
+    print(one.subtract(two))
+    f = Fraction(3, 6)
+    f.reduce()
+    print(f)
 
 if __name__ == '__main__':
     main()
